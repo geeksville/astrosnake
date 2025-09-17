@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/miniconda
 {
-	"name": "Miniconda (Python 3)",
+	"name": "astrosnake",
 	"build": { 
 		"context": "..",
 		"dockerfile": "Dockerfile"
@@ -16,6 +16,8 @@
 		"XAUTHORITY": "${localEnv:XAUTHORITY}",
 		"PYTHONDEVMODE": "1"
 	},
+
+	// "forwardPorts": [5000]
 
 	"runArgs": [
 		"--privileged", // Allow full hw access from host, also allows writing core dump files
@@ -71,9 +73,6 @@
 				"snakemake.snakemake-lang",
 				"ms-python.python",
     			"ms-python.vscode-pylance"
-
-				// For the time being leave this off, the existing codebase has lots of trailing spaces
-				// "shardulm94.trailing-spaces"
 			]
 		}
 	}

@@ -1,0 +1,3 @@
+[submodule "siril-scripts"]
+	path = siril-scripts
+	url = https://github.com/geeksville/siril-scripts.git
