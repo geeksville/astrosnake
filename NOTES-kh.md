@@ -34,7 +34,10 @@ https://snakemake.readthedocs.io/en/stable/tutorial/additional_features.html#aut
 
 ## for post-create
 
-conda create -y -c conda-forge -c bioconda -n snakemake snakemake
-conda init
 source ~/.bashrc
 conda activate snakemake
+
+## tutorial usage
+
+autofetch all dependencies and do a build
+snakemake --cores all --use-conda
