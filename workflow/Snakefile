@@ -40,25 +40,26 @@ rule mastertools_make_bias:
         )        
     output:
         "/images/masters/biases/{date}/bias_stacked.fits"
-    shell:
+    run:
         # Making bias from /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-44_Dark_-10.10_0.00s_0000.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-45_Dark_-10.10_0.00s_0001.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-46_Dark_-10.10_0.00s_0002.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-46_Dark_-10.10_0.00s_0003.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-48_Dark_-10.10_0.00s_0004.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-51_Dark_-10.00_0.00s_0005.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-55_Dark_-9.90_
-        textwrap.dedent("""
-        echo Making bias from {input} to {output}
+        process_dir=config["paths"]["siril_work"]+"/process"
+        shell(textwrap.dedent("""
+            echo Making bias from {input} to {output}
 
-        rm -r /images/siril_new/process/biastemp || true
-        mkdir -p /images/siril_new/process/biastemp
-        ln -s {input} /images/siril_new/process/biastemp
-        org.siril.Siril -d /images/siril_new/process/biastemp -s - << 'EOF'
-        requires 1.3.4
+            rm -r {process_dir}/biastemp || true
+            mkdir -p {process_dir}/biastemp
+            ln -s {input} {process_dir}/biastemp
+            org.siril.Siril -d {process_dir}/biastemp -s - << 'EOF'
+            requires 1.3.4
 
-        # Convert Bias Frames to .fit files
-        link bias -out=/images/siril_new/process
-        cd /images/siril_new/process
+            # Convert Bias Frames to .fit files
+            link bias -out={process_dir}
+            cd {process_dir}
 
-        # Stack Bias Frames to bias_stacked.fit
-        stack bias rej 3 3 -nonorm -out={output}
-        EOF
-        """)
+            # Stack Bias Frames to bias_stacked.fit
+            stack bias rej 3 3 -nonorm -out={output}
+            EOF
+            """))
 
 # target rules
 # -----------------------------------------------------

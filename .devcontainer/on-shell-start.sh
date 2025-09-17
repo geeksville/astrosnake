@@ -9,5 +9,6 @@ export PATH="$PATH":/var/lib/flatpak/exports/bin
 
 # Shortcuts for testing
 alias smake="snakemake --cores all --use-conda"
+alias sdag="smake --dag | xdot -"
 
 conda activate snakemake
