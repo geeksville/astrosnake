@@ -11,6 +11,8 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 #     && pip install --no-cache-dir pipx \
 #     && pipx reinstall-all
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# Install Siril
+RUN sudo apt-get update
+RUN sudo apt-get -y --no-install-recommends install flatpak
+RUN sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+RUN sudo flatpak install -y flathub org.siril.Siril

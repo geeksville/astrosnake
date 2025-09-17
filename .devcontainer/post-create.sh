@@ -14,3 +14,5 @@ conda create -y -c conda-forge -c bioconda -n snakemake snakemake
 conda init
 #source ~/.bashrc
 #conda activate snakemake
+
+echo "source .devcontainer/on-shell-start.sh" >> ~/.bashrc
