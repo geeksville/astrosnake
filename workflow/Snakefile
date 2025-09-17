@@ -11,9 +11,8 @@ configfile: "config/config.yaml"
 
 # load rules
 # -----------------------------------------------------
-include: "rules/common.smk"
-include: "rules/process_reads.smk"
-
+# include: "rules/common.smk"
+# include: "rules/process_reads.smk"
 
 # optional messages, log and error handling
 # -----------------------------------------------------
@@ -29,9 +28,27 @@ onerror:
     print("\n--- An error occurred! ---\n")
 
 
+import glob
+
+rule mastertools_make_bias:
+    input:
+        # "/images/from_astroboy/masters-raw/{date}/BIAS/{date}_{time}_{filter}_{temp}_{secs}_{index}.fits"
+        # Use a lambda function to find all files for the given date wildcard
+        lambda wildcards: glob.glob(
+            f"/images/from_astroboy/masters-raw/{wildcards.date}/BIAS/{wildcards.date}_*.fits"
+        )        
+    output:
+        "/images/masters/biases/{date}/bias_stacked.fits"
+    shell:
+        # 
+Making bias from /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-44_Dark_-10.10_0.00s_0000.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-45_Dark_-10.10_0.00s_0001.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-46_Dark_-10.10_0.00s_0002.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-46_Dark_-10.10_0.00s_0003.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-48_Dark_-10.10_0.00s_0004.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-51_Dark_-10.00_0.00s_0005.fits /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-55_Dark_-9.90_
+        "echo Making bias from {input} to {output}" # ; sleep 1; touch {output}
+
 # target rules
 # -----------------------------------------------------
 rule all:
     input:
-        "results/multiqc/multiqc_report.html",
+        # process /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-31-46_Dark_-10.10_0.00s_0002.fits
+        expand("{masters}/biases/2025-09-09/bias_stacked.fits", masters=config["paths"]["masters"])
+        # expand("{siril_work}/fixme.txt", siril_work=config["paths"]["siril_work"])
     default_target: True

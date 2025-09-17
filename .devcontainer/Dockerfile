@@ -13,6 +13,6 @@ RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bi
 
 # Install Siril
 RUN sudo apt-get update
-RUN sudo apt-get -y --no-install-recommends install flatpak
+RUN sudo apt-get -y --no-install-recommends install flatpak graphviz xdot
 RUN sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 RUN sudo flatpak install -y flathub org.siril.Siril

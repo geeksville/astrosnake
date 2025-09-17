@@ -7,4 +7,7 @@ echo "🚀 Astrosnake dev shell started!"
 # To find siril and other flatpaks
 export PATH="$PATH":/var/lib/flatpak/exports/bin
 
+# Shortcuts for testing
+alias smake="snakemake --cores all --use-conda"
+
 conda activate snakemake
