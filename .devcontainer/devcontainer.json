@@ -10,7 +10,15 @@
 	// Features to add to the dev container. More info: https://containers.dev/features.	
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
-	}
+	},
+	"containerEnv": {
+		//"GIT_AUTHOR_NAME": "${localEnv:GIT_AUTHOR_NAME}",
+		// "GIT_AUTHOR_EMAIL": "${localEnv:GIT_AUTHOR_EMAIL}",
+
+		"DISPLAY": "${localEnv:DISPLAY}",
+		"XAUTHORITY": "${localEnv:XAUTHORITY}",
+		"PYTHONDEVMODE": "1"
+	},
 
 	"runArgs": [
 		"--privileged", // Allow full hw access from host, also allows writing core dump files
@@ -51,16 +59,26 @@
 
 		"PYTHONDEVMODE": "1" // Enable Python dev mode for better debug output
 	},
-	"remoteUser": "vscode"
+	"remoteUser": "vscode",
+
+	"postCreateCommand": "bash .devcontainer/post-create.sh",
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "python --version",
-
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"snakemake.snakemake-lang",
+				"ms-python.python",
+    			"ms-python.vscode-pylance"
+
+				// For the time being leave this off, the existing codebase has lots of trailing spaces
+				// "shardulm94.trailing-spaces"
+			]
+		}
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
