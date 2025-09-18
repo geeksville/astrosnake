@@ -17,7 +17,7 @@ paths:
   siril_work: "/images/siril_new"
 
   # directories of the form /images/from_astroboy/masters-raw/2025-09-09/BIAS/2025-09-09_20-33-19_Dark_-9.70_0.00s_0030.fits
-  masters_raw: "/images/from_astroboy/masters_raw"
+  masters_raw: "/images/from_astroboy/masters-raw"
 
   # Generated from masters raw
   masters: "/images/masters"
